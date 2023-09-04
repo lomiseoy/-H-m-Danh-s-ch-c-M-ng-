@@ -1,0 +1,67 @@
+}
+//Them phan tu co noi dung X vao tai vi tri P trong danh sach L
+void Insert_List(ElementType X, Position P, List *L){
+     int i=0;
+     if (L->Last==Maxlength)
+        printf(“\nDanh sach day!”);
+     else if ((P<1) || (P>L->Last+1))
+          printf(“\nVi tri khong hop le!”);
+          else {
+               for (i=L->Last; i>=P; i–)
+               L->Elements[i] = L->Elements[i-1];
+               L->Last++;
+               L->Elements[P-1]=X;
+          }
+}
+//Xoa phan tu tai vi tri P trong danh sach L
+void Delete_List(Position P, List *L){
+     if ((P<1) || (P > L->Last))
+     printf(“\nVi tri khong hop le!”);
+     else
+     if (Empty_List(*L))
+     printf(“\nDanh sach rong!”);
+     else {
+          Position i;
+          for (i=P; i<L->Last; i++)
+          {
+              L->Elements[i-1] = L-> Elements[i];
+     }
+     L->Last–;
+     }
+}
+//In danh L sach ra man hinh
+void Print_List(List L){
+     Position P;
+     P = FirstList(L);
+     //printf(“\nBat dau in danh sach “);
+     while (P != EndList(L)) {
+           printf(“\t%d”,Retrieve(P,L));
+           P = Next(P,L);
+     }
+     //printf(“\nKet thuc in danh sach!\n”);
+}
+//Nhap danh sach tu ban phim
+void Read_List(List *L){
+     int i, N;
+     ElementType X;
+     MakeNull_List(L);
+     printf(“\nNhap vao so phan tu trong danh sach “);
+     scanf(“%d”, &N); fflush(stdin);
+     for (i=1; i<=N; i++){
+         printf(“\nPhan tu thu %d la : “, i);
+      scanf(“%d”, &X); fflush(stdin);
+      Insert_List(X,EndList(*L),L);
+      }
+}
+//Tim vi tri phan tu X dau tien trong danh sach, neu khong co ->EndList
+Position Locate(ElementType X, List L){
+         Position P;
+         int found = 0;
+         P = FirstList(L);
+         while ((P!=EndList(L)) && (found==0)){
+               if(Retrieve (P,L)==X)
+               found = 1;
+               else P = Next(P,L);
+         }
+         return P;
+}
